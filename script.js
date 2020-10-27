@@ -37,7 +37,8 @@ var searchfn = (typeof getQueryStringValue("fn") === 'undefined') ? '' : getQuer
 var searchln = (typeof getQueryStringValue("ln") === 'undefined') ? '' : getQueryStringValue("ln");
 
 //Name API URL
-var nameApi = 'https://ono.4b.rs/v1/nat?key=' + APIKey + '&fn='+ searchfn +'&sn='+ searchln;
+var proxyurl = "https://cors-anywhere.herokuapp.com/"
+var nameApi = proxyurl+'https://ono.4b.rs/v1/nat?key=' + APIKey + '&fn='+ searchfn +'&sn='+ searchln;
 console.log(nameApi); 
 
 //grab HTML Countries Table and create JSON from it
