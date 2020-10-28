@@ -38,7 +38,7 @@ var searchln = (typeof getQueryStringValue("ln") === 'undefined') ? '' : getQuer
 
 //Name API URL
 var proxyurl = "https://cors-anywhere.herokuapp.com/";
-var nameApi = proxyurl + 'https://ono.4b.rs/v1/nat?key=' + APIKey + '&fn='+ searchfn +'&sn='+ searchln;
+var nameApi = proxyurl + 'https://ono.4b.rs/v1/nat?key=' + APIKey + '&fn='+ searchfn +'&sn='+ searchln.split(' ').join('_');
 console.log(nameApi); 
 
 //grab HTML Countries Table and create JSON from it
@@ -73,11 +73,12 @@ function search(item1, item2, myArray){
     data: {
         //If URI includes ?search= then display the search parameter else display default text. 
         query: (typeof getQueryStringValue("ln") === 'undefined') ? 'Search for a Name to Begin' : 'You searched for ' + searchfn + ' '+ searchln,
-        forebears: 'https://forebears.io/surnames/' + searchln,
+        forebears: 'https://forebears.io/surnames/' + searchln.split(' ').join('_'),
         country1: 'none',
         country2: 'none ',
         arabspeaking: '',
         apikey: APIKey,
+        spheres: '',
     },
     watch: {
         country1: function(NewValue, OldValue) {
@@ -95,6 +96,7 @@ function search(item1, item2, myArray){
         console.log(response);
         this.country1 = response.data.countries[0];
         this.country2 = response.data.countries[1];
+        this.spheres = response.data.spheres[0].sphere.slice(0, -9);
       })
     }
     })
